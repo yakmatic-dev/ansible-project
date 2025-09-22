@@ -1,0 +1,10 @@
+all:
+  children:
+    webservers:
+      hosts:
+        target1:
+          ansible_host: 4.157.119.20
+          ansible_user: yakmat
+          ansible_ssh_private_key_file: ~/.ssh/id_ansible
+          #ansible_python_interpreter: /usr/bin/python3
+
