@@ -1,0 +1,14 @@
+---
+- name: copying file to  web servers
+  hosts: web01
+  become: yes
+
+  tasks:
+  - name: Copy file with owner and permissions
+    copy:
+     src: /home/test/app.html
+     dest: /var/www/app.html
+     backup: yes
+     #owner: foo
+     #group: foo
+     #mode: '0644'
