@@ -11,7 +11,8 @@
 
   - name: Start nginx
     ansible.builtin.service:
-      state
+      name: nginx
+      state: started
 
 #- name: Update db servers
 #  hosts: databases
