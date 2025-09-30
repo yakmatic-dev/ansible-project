@@ -1,0 +1,30 @@
+---
+- name: Install MySQL on db servers
+  hosts: db01
+  become: yes
+
+  tasks:
+    - name: Install prerequisite for MySQL Python support
+      ansible.builtin.apt:
+        name: python3-pymysql
+        state: present
+        update_cache: yes
+      check_mode: no
+
+
+    - name: Ensure MySQL is installed (specific version)
+      ansible.builtin.apt:
+        name: mysql-server
+        state: present
+        update_cache: yes
+
+    - name: Create database user with name 'bob' and password '12345' with all database privileges
+      community.mysql.mysql_user:
+        name: bob
+        password: 12345
+        priv: '*.*:ALL'
+        state: present
+        login_unix_socket: /run/mysqld/mysqld.sock
+      
+
+

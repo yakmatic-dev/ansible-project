@@ -1,0 +1,17 @@
+---
+- name: Install MySQL on db servers
+  hosts: dbservers
+  become: yes
+
+  tasks:
+    - name: Ensure MySQL is installed (specific version)
+      ansible.builtin.apt:
+        name: mysql-server=8.0*
+        state: present
+        update_cache: yes
+
+    - name: Ensure MySQL client is installed
+      ansible.builtin.apt:
+        name: mysql-client=8.0*
+        state: present
+
