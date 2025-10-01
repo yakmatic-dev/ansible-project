@@ -1,0 +1,45 @@
+---
+- name: Install MySQL on db servers
+  hosts: web01
+  become: yes
+  vars:
+   dbname: platform_db
+   dbuser: yakmat
+   dbpass: 12345
+
+  tasks:
+    - debug:
+       msg: " The db name is {{dbname}}"
+
+    - debug:
+       msg: "{{dbpass}}"
+
+    - name: Install prerequisite for MySQL Python support
+      ansible.builtin.apt:
+        name: python3-pymysql
+        state: present
+        update_cache: yes
+      check_mode: no
+
+
+    - name: Ensure MySQL is installed (specific version)
+      ansible.builtin.apt:
+        name: mysql-server
+        state: absent
+        update_cache: yes
+
+    - name: Create database user with name 'bob' and password '12345' with all database privileges
+      community.mysql.mysql_user:
+        name: "{{dbuser}}"
+        password: "{{dbpass}}"
+        priv: '*.*:ALL'
+        state: absent
+        login_unix_socket: /run/mysqld/mysqld.sock
+      register: dboutput
+
+    - name: Print dboutput variable
+      debug:
+        var: dboutput
+      
+
+
