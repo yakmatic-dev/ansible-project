@@ -2,10 +2,10 @@
 - name: Install MySQL on db servers
   hosts: web01
   become: yes
-  vars:
-   dbname: platform_db
-   dbuser: yakmat
-   dbpass: 12345
+  #vars:
+  #dbname: platform_db
+  #dbuser: yakmat
+  #dbpass: 12345
 
   tasks:
     - debug:
