@@ -1,0 +1,23 @@
+---
+
+- name: Understanding vars
+  hosts: all
+  become: yes
+  #vars:
+  # USR: yakmat
+  # COMM: just_user_create
+
+  vars_files:
+    - vars/external_vars.yml   # relative path (inside your project)
+
+
+  tasks:
+   - name: This tasks create user and gives comment
+     ansible.builtin.user: 
+      name: "{{USR}}"
+      comment: "{{COMM}}"
+     register: useroutput 
+
+   - debug:
+     #msg: "This is the username created {{USR}}"i
+      var: useroutput
