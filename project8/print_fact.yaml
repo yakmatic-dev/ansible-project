@@ -1,0 +1,12 @@
+---
+- name: print some facts
+  hosts: all
+  gather_facts: false
+  tasks:
+   - name: print os name
+     debug: 
+      var: ansible_distribution
+
+   - name: print RAM memory
+     debug:
+       var: ansible_memory_mb
