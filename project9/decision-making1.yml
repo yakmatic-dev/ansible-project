@@ -1,0 +1,53 @@
+
+---
+- name: Install and start Nginx web server
+  hosts: all
+  become: yes
+  vars:
+    nginx_package: nginx
+    nginx_service: nginx
+
+  tasks:
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+
+    - name: Update yum cache
+      ansible.builtin.yum:
+        update_cache: yes
+      when: ansible_os_family == "RedHat"
+
+
+    - name: Install Nginx
+      ansible.builtin.yum:
+        name: "{{ nginx_package }}"
+        state: present
+      when: ansible_os_family == "RedHat"
+
+
+    - name: Install Nginx
+      ansible.builtin.apt:
+        name: "{{ nginx_package }}"
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Ensure Nginx is running and enabled at boot
+      ansible.builtin.service:
+        name: "{{ nginx_service }}"
+        state: started
+        enabled: yes
+
+    - name: Print Nginx version
+      ansible.builtin.command: nginx -v
+      register: nginx_version_output
+      ignore_errors: yes
+      
+
+    - name: Show Nginx version
+      ansible.builtin.debug:
+        var: nginx_version_output.stderr
+
+
+    -

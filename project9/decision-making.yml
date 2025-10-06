@@ -1,0 +1,23 @@
+---
+- name: Provisining nginx
+  hosts: webservers
+  become: yes
+  vars:
+    nginx_install: nginx
+    nginx_service: nginx
+  
+
+  tasks:
+   - name: install nginx on Debian webservers
+     ansible.builtin.yum:
+      name: "{{nginx_install}}"
+      state: present
+      update_cache: yes
+    when: ansible_distribution == "CentOs"
+
+
+  - name: start nginx service
+    ansible.builtin.service:
+      name: "{{nginx_service}}"
+
+
