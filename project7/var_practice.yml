@@ -21,3 +21,15 @@
    - debug:
      #msg: "This is the username created {{USR}}"i
       var: useroutput
+
+
+   - debug:
+      var: useroutput.comment
+
+   - debug:
+      msg: "This is username created {{USR}}"
+
+
+   - debug:
+      msg: "{{COMM}}"
+
