@@ -1,0 +1,62 @@
+---
+- name: Using loop to provision many items
+  hosts: all
+  become: yes
+
+  vars_files:
+    - ./vault_hosts.yml     
+
+  tasks:
+    - name: Install multiple packages
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - nginx
+        - curl
+        - git
+      when: ansible_os_family == "Debian"
+
+
+    - name: Install multiple packages
+      ansible.builtin.yum:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - nginx
+        - curl
+        - git
+      when: ansible_os_family == "RedHat"
+
+    - name: Create multiple users
+      ansible.builtin.user:
+        name: "{{ item.name }}"
+        comment: "{{ item.comment }}"
+        state: present
+      loop:
+      - { name: "yakmat", comment: "DevOps Engineer" }
+      - { name: "victor", comment: "Database Admin" }
+
+
+
+    - name: Copy configuration files
+      ansible.builtin.copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+      loop:
+      - { src: "./nginx.conf", dest: "/etc/nginx/nginx.conf" }
+      - { src: "./app.conf", dest: "/etc/nginx/conf.d/app.conf" }
+
+
+
+    - name: Restart web servers only
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: restarted
+      loop:
+       - nginx
+       - apache2
+      when: ansible_os_family == "Debian"
+
+
+
