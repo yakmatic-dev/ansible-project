@@ -1,0 +1,26 @@
+---
+- name: Using loop to provision many items
+  hosts: web01
+  become: yes
+
+  vars_files:
+    - ./vault_hosts.yml
+
+  tasks:
+  - name: Copy a file from control machine to servers
+    ansible.builtin.copy:
+     src: /home/test/test
+     dest: /home/yakmat/test
+     owner: yakmat
+     group: yakmat
+     mode: '0644'
+     backup: yes
+
+  - name: Copy using template(dynamic file) from control machine to servers
+    ansible.builtin.template:
+     src: templates/app.conf.j2
+     dest: /home/yakmat/app.conf
+     owner: yakmat
+     group: yakmat
+     mode: '0644'
+     backup: yes
