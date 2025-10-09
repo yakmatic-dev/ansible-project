@@ -49,7 +49,7 @@ we can check ansible docx on more ad-hoc cmds
 ## 7. Variables
 Variables make playbooks flexible.
 
-##### Example:
+Example:
 vars:
   pkg_name: nginx
 
@@ -116,6 +116,7 @@ Example:
     src: files/index.html
     dest: /var/www/html/index.html
 **```**
+  
 Template module processes Jinja2 templates. template is dynamic and it is going to read your file from template file 
 Example:
 **```**
@@ -128,7 +129,7 @@ Example:
 Handlers are triggered when notified by tasks.
 
 Example:
-**```**
+yaml
 tasks:
   - name: Copy config
     ansible.builtin.template:
@@ -140,7 +141,7 @@ handlers:
     ansible.builtin.service:
       name: nginx
       state: restarted
-**```**
+
 ## 14. Roles
 Roles organize playbooks into reusable components.
 
