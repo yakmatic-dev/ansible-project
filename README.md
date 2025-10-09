@@ -45,25 +45,7 @@ Ping module verifies connectivity:
 ansible all -m ping -u ubuntu --key-file ~/.ssh/id_rsa
 we can check ansible docx on more ad-hoc cmds
 
-## 6. Writing Playbooks
-A playbook defines tasks for hosts, like collection of play(scripts)
-e.g of playbook to Install Nginx
 
-**```**
----
-- name: Install Nginx
-  hosts: webservers
-  become: yes
-  tasks:
-    - name: Update apt cache
-      ansible.builtin.apt:
-        update_cache: yes
-
-    - name: Install Nginx
-      ansible.builtin.apt:
-        name: nginx
-        state: present
- **```**
 ## 7. Variables
 Variables make playbooks flexible.
 
@@ -81,11 +63,11 @@ tasks:
 ## 8. Debugging Variables
 Use debug to display variable values.
 Example:
-**```**
+**```yaml**
 - name: Show variable
   debug:
     var: pkg_name
- **```**
+ **```yaml**
 ## 9. Group and Host Variables
 Variables can be defined per group or host ... though variable takes priority and there is **fact variable** that are generated from gather_facts
 $ ansible -m setup web01
