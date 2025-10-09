@@ -56,18 +56,31 @@ Inventory files define managed hosts and groups — including IPs, users, and co
 ### Example `inventory.yml`
 ```yaml
 all:
+  vars:
+    ansible_ssh_private_key_file: ~/.ssh/id_ansible
+    ansible_python_interpreter: /usr/bin/python3
+
   children:
     webservers:
+      vars:
+        ansible_user: yakmat
       hosts:
         web01:
-          ansible_host: 192.168.1.10
-          ansible_user: ubuntu
+          ansible_host: "{{ web01_ip }}"
+        web02:
+          ansible_host: "{{ web02_ip }}"
+          ansible_user: test
+
     dbservers:
       hosts:
-        db01:
-          ansible_host: 192.168.1.20
-          ansible_user: ubuntu
+        db1:
+          ansible_host: "{{ db1_ip }}"
+          ansible_user: yakmatdemo
+          ansible_python_interpreter: /usr/bin/python3.6
+
 ```
+#### The above ansible vault is used, creating file vault_hosts.yml and refrence it 
+
 
 ### Test Connection
 ```bash
