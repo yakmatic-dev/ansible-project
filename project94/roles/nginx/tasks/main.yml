@@ -1,0 +1,33 @@
+---
+# tasks file for nginx
+
+
+- name: Install Nginx on Ubuntu
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Install Nginx on RedHat/CentOS
+  yum:
+    name: nginx
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Copy Nginx configuration file from template
+  template:
+    src: nginx.conf.j2
+    dest: "{{nginx_conf_dest}}"
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+  notify: Restart Nginx
+
+- name: Ensure Nginx service is running and enabled
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+
