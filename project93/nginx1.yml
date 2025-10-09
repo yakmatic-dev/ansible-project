@@ -1,0 +1,77 @@
+---
+- name: Deploy Nginx with SSL support on web servers
+  hosts: webservers
+  become: yes
+
+  vars:
+    nginx_conf_src: templates/nginx.conf.j2
+    nginx_conf_dest: /etc/nginx/nginx.conf
+    ssl_cert_path: /etc/ssl/certs/nginx-selfsigned.crt
+    ssl_key_path: /etc/ssl/private/nginx-selfsigned.key
+
+  tasks:
+    - name: Update APT cache (Ubuntu)
+      ansible.builtin.apt:
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Update YUM cache (RedHat)
+      ansible.builtin.yum:
+        update_cache: yes
+      when: ansible_os_family == "RedHat"
+
+    - name: Install Nginx on Ubuntu
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Install Nginx on RedHat
+      ansible.builtin.yum:
+        name: nginx
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: Ensure OpenSSL is installed
+      ansible.builtin.package:
+        name: openssl
+        state: present
+
+    - name: Generate self-signed SSL certificate if not exists
+      ansible.builtin.command:
+        cmd: >
+          openssl req -x509 -nodes -days 365
+          -newkey rsa:2048
+          -keyout {{ ssl_key_path }}
+          -out {{ ssl_cert_path }}
+          -subj "/C=NG/ST=Lagos/L=Lagos/O=Yakmat/OU=DevOps/CN={{ inventory_hostname }}"
+        creates: "{{ ssl_cert_path }}"
+      notify: Reload Nginx
+
+    - name: Deploy Nginx configuration with SSL
+      ansible.builtin.template:
+        src: "{{ nginx_conf_src }}"
+        dest: "{{ nginx_conf_dest }}"
+        owner: root
+        group: root
+        mode: '0644'
+      notify:
+        - Restart Nginx
+
+    - name: Ensure Nginx service is started and enabled
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: yes
+
+  handlers:
+    - name: Restart Nginx
+      ansible.builtin.service:
+        name: nginx
+        state: restarted
+
+    - name: Reload Nginx
+      ansible.builtin.service:
+        name: nginx
+        state: reloaded
+
