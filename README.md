@@ -49,8 +49,7 @@ we can check ansible docx on more ad-hoc cmds
 ## 7. Variables
 Variables make playbooks flexible.
 
-Example:
-**```**
+##### Example:
 vars:
   pkg_name: nginx
 
@@ -59,15 +58,14 @@ tasks:
     ansible.builtin.apt:
       name: "{{ pkg_name }}"
       state: present
-**```**
 ## 8. Debugging Variables
 Use debug to display variable values.
 Example:
-**```yaml**
+**```**
 - name: Show variable
   debug:
     var: pkg_name
- **```yaml**
+ **```**
 ## 9. Group and Host Variables
 Variables can be defined per group or host ... though variable takes priority and there is **fact variable** that are generated from gather_facts
 $ ansible -m setup web01
