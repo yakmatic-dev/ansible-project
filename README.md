@@ -290,6 +290,8 @@ roles/
 
 ---
 ![image alt](https://github.com/yakmatic-dev/ansible-project/blob/c3ba5cea86da360e11c0353182e647cd5b48a96c/images/image.png)
+
+
 <img width="837" height="523" alt="image" src="https://github.com/user-attachments/assets/a92534ad-db93-4bd7-baf8-e756b00deabe" />
 
 
@@ -303,6 +305,9 @@ ansible-vault create vault.yml
 ansible-vault edit vault.yml
 ansible-vault view vault.yml
 ```
+The below image showing that the info is encrypt with ansible vault
+
+<img width="1058" height="245" alt="image" src="https://github.com/user-attachments/assets/13926bb4-1571-4a8a-adde-b3b545520d2c" />
 
 ### Running Playbooks with Vault
 ```bash
