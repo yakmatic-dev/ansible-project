@@ -289,6 +289,9 @@ roles/
 ```
 
 ---
+![image alt](https://github.com/yakmatic-dev/ansible-project/blob/c3ba5cea86da360e11c0353182e647cd5b48a96c/images/image.png)
+<img width="837" height="523" alt="image" src="https://github.com/user-attachments/assets/a92534ad-db93-4bd7-baf8-e756b00deabe" />
+
 
 ## 15. Ansible Vault
 
