@@ -94,12 +94,14 @@ ansible all -m ping
 ## 5. Ad-hoc Commands and Modules
 
 Ad-hoc commands run quick tasks using Ansible modules.
+  ![image alt](https://github.com/yakmatic-dev/ansible-project/blob/2a3fbb35b2821db5b57dd2c1a3fc60f243b1ff47/images/ad%20hoc.jpg)
+
 
 ### Example (Ping Module)
 ```bash
 ansible all -m ping -u ubuntu --key-file ~/.ssh/id_rsa
 ```
-
+![image alt](https://github.com/yakmatic-dev/ansible-project/blob/2a3fbb35b2821db5b57dd2c1a3fc60f243b1ff47/images/ansible%20ping.jpg)
 See more examples in the [Ansible Module Documentation](https://docs.ansible.com/ansible/latest/collections/index_module.html).
 
 ---
@@ -127,6 +129,7 @@ Playbooks are YAML files that define automation steps.
 ```
 
 ---
+![image alt](https://github.com/yakmatic-dev/ansible-project/blob/2a3fbb35b2821db5b57dd2c1a3fc60f243b1ff47/images/nginx%20install%20playbook.jpg)
 
 ## 7. Variables
 
@@ -156,7 +159,7 @@ Display variable values using the `debug` module.
 ```
 
 ---
-
+![image alt](https://github.com/yakmatic-dev/ansible-project/blob/2a3fbb35b2821db5b57dd2c1a3fc60f243b1ff47/images/verbrose%20vv%20playbook.jpg)
 ## 9. Group and Host Variables
 
 Variables can be defined per **group** or **host**.  
