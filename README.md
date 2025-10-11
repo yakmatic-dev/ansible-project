@@ -18,7 +18,9 @@ Playbooks are written in **YAML** and describe desired system states in a simple
 ### Requirements
 - Python 3.8 or higher  
 - SSH connectivity between control and managed nodes  
-- Sudo privileges on managed hosts  
+- Sudo privileges on managed hosts
+  ![image alt](https://github.com/yakmatic-dev/ansible-project/blob/2fcbe647c6aefd14744e85a57abc5eb3666a227e/images/ansible%20version.jpg)
+
 
 ### Installation Guide
 Refer to the official Ansible installation documentation:  
